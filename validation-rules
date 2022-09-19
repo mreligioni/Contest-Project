@@ -1,0 +1,31 @@
+export const FULL_NAME_REGEX = /^(\w{3,})+\s+(\w{3,})+$/i;
+export const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+export const PHONE_REGEX = /(?<!\w)[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/g;
+
+
+
+
+
+
+            {
+              required: true,
+              message: 'Please enter your full name',
+              pattern: new RegExp(FULL_NAME_REGEX),
+            },
+            { whitespace: true },
+          ]}
+          rules={[
+            {
+              required: true,
+              pattern: new RegExp(PHONE_REGEX),
+              message: 'Please enter valid Polish phone number',
+            },
+            { whitespace: false },
+          ]}
+        >
+          <Input
+            type="number"
+            id="phone-number"
+            className="form-item__input inputNumber"
+            placeholder="Write your phone number"
+            autoComplete="off"
