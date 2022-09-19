@@ -1,0 +1,73 @@
+import Excel from 'exceljs';
+import { saveAs } from 'file-saver';
+
+const columns: IExcelColumns[] = [
+    { header: 'Name', key: 'recruitedPerson' },
+    { header: 'E-mail', key: 'emailRecruitedPerson' },
+    { header: 'Phone', key: 'phoneRecruitedPerson' },
+    { header: 'Solution Time', key: 'solutionTime' },
+    { header: 'Result - rate', key: 'rate' },
+    { header: 'Result - percentage', key: 'percent' },
+  ];
+
+//real data needed to be implemented below, these are only example data
+const data = [
+  {
+    firstName: 'Jan',
+    lastName: 'Kowalski',
+    email: 'jk@gmail.com',
+    city: 'Warsaw',
+  },
+];
+
+const workSheetName = 'Worksheet1';
+
+function ExportToExcel() {
+  const workbook = new Excel.Workbook();
+
+  const saveExcel = async () => {
+    try {
+      const fileName = contestName;
+      const worksheet = workbook.addWorksheet(workSheetName);
+
+      worksheet.columns = columns;
+
+      worksheet.getRow(1).font = { bold: true };
+
+      worksheet.columns.forEach(column => {
+        column.width = column.header.length + 5;
+        column.alignment = { horizontal: 'center' };
+      });
+
+      sortedDataToRender.forEach(singleData => {
+        worksheet.addRow(singleData);
+      });
+
+      worksheet.eachRow({ includeEmpty: false }, row => {
+        const currentCell = row.cells;
+
+        currentCell.forEach(singleCell => {
+          const cellAddress = singleCell.address;
+
+          worksheet.getCell(cellAddress).border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' },
+          };
+        });
+      });
+
+      const buf = await workbook.xlsx.writeBuffer();
+
+      saveAs(new Blob([buf]), `${fileName}.xlsx`);
+    } catch (error) {
+      console.error('<<<ERROR>>>', error);
+      console.error('Something Went Wrong', error.message);
+    } finally {
+      workbook.removeWorksheet(workSheetName);
+    }
+  };
+}
+
+export default ExportToExcel;
