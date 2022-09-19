@@ -1,0 +1,9 @@
+.form-select .ant-select-selector {
+  display: flex;
+  align-items: center;
+  height: 100% !important;
+  cursor: pointer !important;
+}
+.ant-select-arrow .anticon:not(.ant-select-suffix) {
+  pointer-events: none;
+}
