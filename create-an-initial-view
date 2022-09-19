@@ -1,0 +1,36 @@
+const InitialView = () => {
+  const [activeContestId, setActiveContestId] = useState();
+  const [activeContestTitle, setActiveContestTitle] = useState();
+  const [activeContestDescription, setActiveContestDescription] = useState();
+
+  activeContestCollectionRef
+    .doc('activeContest')
+    .get()
+    // @ts-ignore
+    .then(active => setActiveContestId(active.data().contestId));
+
+  if (activeContestId !== undefined) {
+    testsCollectionRef
+      .doc(activeContestId)
+      .get()
+      // @ts-ignore
+      .then(activetitle => setActiveContestTitle(activetitle.data().title));
+  }
+
+  if (activeContestId !== undefined) {
+    testsCollectionRef
+      .doc(activeContestId)
+      .get()
+      // @ts-ignore
+      .then(activedesc => setActiveContestDescription(activedesc.data().contestDescription));
+  }
+
+  return (
+    <Row className="finish-background finish-container" align="middle" justify="center">
+      <Col md={8} className="finish-container__col finish-container__flex">
+        </Paragraph>
+        <Paragraph className="finish-text finish-text--welcome">{WELCOME_PART1}</Paragraph>
+        <Paragraph className="finish-text finish-text--lower--finished">{WELCOME_PART2}</Paragraph>
+        <Paragraph className="finish-text">{activeContestTitle}</Paragraph>
+        <Paragraph className="finish-text finish-text--lower--finished">{activeContestDescription}</Paragraph>
+        <Paragraph className="finish-text">{TO_TAKE_PART1}</Paragraph>
