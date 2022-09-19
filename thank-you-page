@@ -1,0 +1,35 @@
+import React, { FC } from 'react';
+import { Row, Col, Paragraph, Image } from 'antd/index';
+import { Link } from 'react-router-dom';
+import britePing from 'assets/britePingLogoLeftDots.svg';
+import CustomButton from 'components/CustomButton/CustomButton';
+import { FINISH_TEST } from '../../constants';
+import { IFinishedTest } from '../../types/interfaces';
+
+const { THANKS_FOR_PARTICIPATING, GO_TO_PAGE, USER_RESULT, TIME_SPENT, SETTLEMENT_INFO } = FINISH_TEST;
+
+const FinishedTest: FC<IFinishedTest> = ({ generatedId, time, result }) => {
+  return (
+    <Row className="finish-background finish-container" align="middle" justify="center">
+      <Col md={8} className="finish-container__col finish-container__flex">
+        <Paragraph className="finish-text">
+          <Image src={britePing} preview={false} height={'2.9rem'} />
+        </Paragraph>
+        <Paragraph className="finish-text">{THANKS_FOR_PARTICIPATING}</Paragraph>
+        <Paragraph className="finish-text">
+          {USER_RESULT}
+          {result}
+          {generatedId}
+        </Paragraph>
+        <Paragraph className="finish-text finish-text--lower--finished">
+          {TIME_SPENT}
+          {time}
+        </Paragraph>
+        <Paragraph className="finish-text">{SETTLEMENT_INFO}</Paragraph>
+        <CustomButton className="custom-button--finish-info">{GO_TO_PAGE}</CustomButton>
+      </Col>
+    </Row>
+  );
+};
+
+export default FinishedTest;
